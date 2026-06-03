@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+.pytest_cache/
+
+# MLX / weights / artifacts (large; fetched or generated)
+weights/
+goldens/
+outputs/
+*.safetensors
+*.npz
+*.wav
+*.mp3
+
+# OS
+.DS_Store
+
+# Keep research diff out of the package but tracked deliberately if desired
+# _research/*.diff

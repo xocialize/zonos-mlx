@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zonos-mlx"
+version = "0.1.0.dev0"
+description = "Apple MLX port of Zyphra/Zonos-v0.1 (autoregressive transformer TTS over DAC codec, with 8-D emotion + prosody conditioning)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "MVS Collective" },
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: MacOS :: MacOS X",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "mlx>=0.31.0",
+    "mlx-lm>=0.20",
+    "safetensors>=0.4",
+    "huggingface_hub>=0.34",
+    "numpy>=1.26",
+    "soundfile>=0.12",        # waveform I/O
+    "phonemizer>=3.2",        # espeak-ng G2P frontend (EspeakPhonemeConditioner)
+]
+
+[project.optional-dependencies]
+# PyTorch + upstream Zonos are DEV-ONLY deps for the parity oracle. End users on MLX never need them.
+# DAC comes from transformers (DacModel "descript/dac_44khz") — NOT the standalone descript-audio-codec pkg.
+parity = [
+    "torch>=2.5.1",
+    "torchaudio>=2.5.1",
+    "transformers>=4.48.1",   # provides transformers.models.dac.DacModel (Zonos autoencoder)
+    "einops>=0.8",
+]
+dev = [
+    "zonos-mlx[parity]",
+    "pytest>=8",
+]
+
+[tool.setuptools.packages.find]
+include = ["zonos_mlx*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -17,6 +17,9 @@ outputs/
 *.wav
 *.mp3
 
+# Upstream reference clone (PyTorch Zonos) — for parity only, not part of the port
+refs/
+
 # OS
 .DS_Store
 
